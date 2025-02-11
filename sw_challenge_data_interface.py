@@ -57,28 +57,28 @@ def process_ohlcv(csv_file, interval, start_time, end_time):
 
     if not trades:
         print("No trades found in the selected time range.")
-    
-    interval_minutes = int(''.join([c for c in interval if c.isdigit()]))  
-    if "h" in interval:
-        interval_minutes *= 60  # convert hours to minutes
-
-    def is_within_interval(start_time, new_time, interval_minutes):
-        start_h, start_m, _ = map(int, start_time[11:19].split(":"))
-        new_h, new_m, _ = map(int, new_time[11:19].split(":"))
-
-        start_total = (start_h * 60) + start_m
-        new_total = (new_h * 60) + new_m
-
-        return (new_total - start_total) < interval_minutes 
 
     ohlcv_bars = []
     current_bar = {"time": trades[0][0], "open": trades[0][1], "high": trades[0][1], "low": trades[0][1], "close": trades[0][1], "volume": trades[0][2]}
 
+
+    unit_multipliers = {'s': 1, 'm': 60, 'h': 3600}
+    interval_value = int(''.join(filter(str.isdigit, interval)))
+    interval_unit = ''.join(filter(str.isalpha, interval))
+
     for i in range(1, len(trades)):
         timestamp, price, volume = trades[i]
 
+        prev_h, prev_m, prev_s = map(int, current_bar["time"][11:19].split(":"))
+        curr_h, curr_m, curr_s = map(int, timestamp[11:19].split(":"))
+
+        prev_time = prev_h * 3600 + prev_m * 60 + prev_s
+        curr_time = curr_h * 3600 + curr_m * 60 + curr_s
+
+        interval_seconds = interval_value * unit_multipliers[interval_unit]
+
         # if the timestamp is in the same interval, update values
-        if is_within_interval(current_bar["time"], timestamp, interval_minutes):
+        if (curr_time - prev_time) <= interval_seconds:
             current_bar["high"] = max(current_bar["high"], price)
             current_bar["low"] = min(current_bar["low"], price)
             current_bar["close"] = price
