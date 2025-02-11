@@ -1,0 +1,28 @@
+- First I ran a simple script to see the file length
+    - Understanding that they are divided by the date and there are:
+        - 5 days (9/16, 9/17, 9/18, 9/19, 9/20)
+        - 690 files per day
+        - Total: 3450 files
+
+- Initially I wanted to divide the dataset into tick data by the day and compare the data but then I realized it would be beneficial to clean the larger dataset first and understand the data fully
+
+- Next I sorted the csv_files so that I would have them in numerical order in a list for easy access (range 0 to 3499)
+
+- Once I had all the csv_files available for easy access, I wanted to see the length of the actual tick data in each csv as to better understand the overall dataset
+    - What I found is that the length of the ticks in each file varies heavily which should be taken into consideration
+    - Next I did a simple scroll in 20240916_0001 and found a couple potential issues.
+        - ONE is that some ticks have a listed size but no listed price
+        - TWO is that some prices are in the negative
+
+- Seeing these issues and with my experience in data cleaning I decided to employ these tactics in my data cleaning process:
+    - **Check for negative priced trades** (1)
+    - **Check for missing values** (2)
+    - ~~Check for duplicates~~
+        - Ended up with a 0 count so this part of the cleaning was not required
+    - Check for trends in timestamp data
+        - ~~See whether or not by each row the timestamp increases~~
+            - All increase correctly
+        - **Check for timestamps outside of trading hours** (3)
+    - **Check for heavy outliers** (4)
+        - After researching IQF (interquartile range) tests I made a couple methods that ended being too taxing on my work so I applied a simpler test
+          using a general minimum threshold to identify major outliers
