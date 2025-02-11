@@ -26,4 +26,4 @@
         - **Check for timestamps outside of trading hours** (3)
     - **Check for heavy outliers** (4)
         - After researching IQF (interquartile range) tests I made a couple methods that ended being too taxing on my work so I applied a simpler test
-          using a general minimum threshold to identify major outliers
+          using a general minimum threshold to identify major outliers ( the statistical tests that I coded during my research is still included )
