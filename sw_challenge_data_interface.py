@@ -78,7 +78,7 @@ def process_ohlcv(csv_file, interval, start_time, end_time):
         interval_seconds = interval_value * unit_multipliers[interval_unit]
 
         # if the timestamp is in the same interval, update values
-        if (curr_time - prev_time) <= interval_seconds:
+        if (curr_time - prev_time) >= interval_seconds:
             current_bar["high"] = max(current_bar["high"], price)
             current_bar["low"] = min(current_bar["low"], price)
             current_bar["close"] = price
