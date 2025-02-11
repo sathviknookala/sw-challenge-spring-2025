@@ -15,6 +15,7 @@
         - TWO is that some prices are in the negative
 
 - Seeing these issues and with my experience in data cleaning I decided to employ these tactics in my data cleaning process:
+    (The 4 consistent data errors are in paranthesis)
     - **Check for negative priced trades** (1)
     - **Check for missing values** (2)
     - ~~Check for duplicates~~
