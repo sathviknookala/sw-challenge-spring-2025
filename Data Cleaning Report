@@ -4,7 +4,8 @@
         - 690 files per day
         - Total: 3450 files
 
-- Initially I wanted to divide the dataset into tick data by the day and compare the data but then I realized it would be beneficial to clean the larger dataset first and understand the data fully
+- Initially I wanted to divide the dataset into tick data by the day and compare the data but then I realized it would be beneficial to clean the 
+larger dataset first and understand the data fully
 
 - Next I sorted the csv_files so that I would have them in numerical order in a list for easy access (range 0 to 3499)
 
